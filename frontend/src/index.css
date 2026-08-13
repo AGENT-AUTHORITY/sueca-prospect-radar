@@ -1,3 +1,10 @@
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/barlow-condensed/latin-600.css";
+@import "@fontsource/barlow-condensed/latin-700.css";
+@import "@fontsource/barlow-condensed/latin-800.css";
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 @import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -8,17 +15,17 @@
    Centralized here so the whole app re-skins from one place.
    =================================================================== */
 @theme {
-  --color-sueca-blue: #315f9c;
+  --color-sueca-blue: #2f6fbf;
   --color-sueca-dark: #173e73;
-  --color-sueca-deep: #102c52;
-  --color-sueca-light: #5e8fc5;
-  --color-sueca-mist: #eaf1f8;
+  --color-sueca-deep: #071a2e;
+  --color-sueca-light: #6f9fd8;
+  --color-sueca-mist: #e7eef6;
 
-  --color-canvas: #f4f7fa;
+  --color-canvas: #eef3f8;
   --color-surface: #ffffff;
-  --color-line: #dce4ec;
-  --color-ink: #17212b;
-  --color-ink-soft: #647383;
+  --color-line: #ced9e4;
+  --color-ink: #102033;
+  --color-ink-soft: #617286;
 
   --color-hi: #1f8a54;
   --color-hi-soft: #e5f4ec;
@@ -28,6 +35,7 @@
   --color-lo-soft: #eef1f4;
 
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
 
   --shadow-card: 0 1px 2px rgba(16, 44, 82, 0.04), 0 6px 20px rgba(16, 44, 82, 0.06);
   --shadow-pop: 0 12px 40px rgba(16, 44, 82, 0.16);
@@ -50,6 +58,284 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* ---- Access experience --------------------------------------------- */
+.login-screen {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 58%) minmax(380px, 42%);
+  overflow: hidden;
+  background: #071a2e;
+}
+
+.login-visual {
+  position: relative;
+  min-width: 0;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+  background: #102b47;
+}
+
+.login-visual-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.login-access {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(5rem, 8vw, 8.5rem) clamp(2.5rem, 5vw, 6rem) 4rem;
+  background: #071a2e;
+  color: #ffffff;
+}
+
+.login-language {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.login-content {
+  width: min(100%, 460px);
+}
+
+.login-wordmark-title {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 5.2vw, 5rem);
+  font-weight: 700;
+  line-height: 0.79;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.login-wordmark-sueca {
+  color: #ffffff;
+}
+
+.login-wordmark-radar {
+  margin-top: 0.15em;
+  color: #7fa7d8;
+  white-space: nowrap;
+}
+
+.login-wordmark-tagline {
+  margin-top: 1.45rem;
+  color: #79a3d7;
+  font-size: 0.77rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.login-wordmark-rule {
+  display: block;
+  width: 2.5rem;
+  height: 0.2rem;
+  margin-top: 1.25rem;
+  background: #ffcc00;
+}
+
+.login-form {
+  margin-top: clamp(2.5rem, 6vh, 4.25rem);
+}
+
+.login-form-heading h1 {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.login-form-heading p {
+  margin: 0.45rem 0 1.85rem;
+  color: #a2b6cf;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.login-label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #f7fbff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.login-input {
+  width: 100%;
+  min-height: 3.6rem;
+  box-sizing: border-box;
+  border: 1px solid #4aa3e5;
+  border-radius: 0.55rem;
+  background: #0a223b;
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.22em;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.login-input:hover {
+  border-color: #78bcec;
+}
+
+.login-input:focus-visible {
+  border-color: #8ad2ff;
+  background: #0c2948;
+  box-shadow: 0 0 0 3px rgba(74, 163, 229, 0.22);
+}
+
+.login-input[aria-invalid="true"] {
+  border-color: #ff8f8f;
+}
+
+.login-message-slot {
+  min-height: 1.75rem;
+}
+
+.login-error {
+  margin: 0.55rem 0 0;
+  color: #ffaaaa;
+  font-size: 0.85rem;
+}
+
+.login-submit {
+  width: 100%;
+  min-height: 3.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: #3179d7;
+  color: #ffffff;
+  padding: 0.9rem 1.2rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(22, 87, 172, 0.2);
+  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.login-submit:hover:not(:disabled) {
+  background: #3d88e8;
+  box-shadow: 0 15px 34px rgba(22, 87, 172, 0.3);
+  transform: translateY(-1px);
+}
+
+.login-submit:focus-visible {
+  outline: 3px solid rgba(138, 210, 255, 0.55);
+  outline-offset: 3px;
+}
+
+.login-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.login-splash {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: #071a2e;
+}
+
+@media (max-width: 760px) {
+  .login-screen {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(14rem, 34svh) auto;
+    overflow: auto;
+  }
+
+  .login-visual {
+    min-height: 0;
+    height: auto;
+  }
+
+  .login-visual-image {
+    object-position: center 45%;
+  }
+
+  .login-access {
+    min-height: 66svh;
+    align-items: flex-start;
+    padding: 4.25rem 1.5rem 1.5rem;
+  }
+
+  .login-language {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .login-content {
+    width: 100%;
+  }
+
+  .login-wordmark-title {
+    font-size: clamp(2.65rem, 13vw, 3.2rem);
+  }
+
+  .login-wordmark-radar {
+    font-size: 0.86em;
+  }
+
+  .login-wordmark-tagline {
+    margin-top: 0.95rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+  }
+
+  .login-wordmark-rule {
+    margin-top: 0.9rem;
+  }
+
+  .login-form {
+    margin-top: 1.75rem;
+  }
+
+  .login-form-heading p {
+    margin-bottom: 1.25rem;
+  }
+
+  .login-input {
+    min-height: 3.35rem;
+  }
+
+  .login-message-slot {
+    min-height: 1.35rem;
+  }
+
+  .login-submit {
+    min-height: 3.45rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .login-screen {
+    grid-template-rows: minmax(13.5rem, 33svh) auto;
+  }
+
+  .login-access {
+    min-height: 67svh;
+    padding-inline: 1.15rem;
+  }
 }
 
 /* Numeric tabular alignment for metrics/tables */

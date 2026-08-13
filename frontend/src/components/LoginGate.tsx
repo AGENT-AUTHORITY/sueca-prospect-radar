@@ -1,39 +1,31 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import { LogIn } from "lucide-react";
+import { ArrowRight, LoaderCircle } from "lucide-react";
 import { useAuth } from "../lib/auth";
 import { useT } from "../lib/i18n";
+import roadHero from "../assets/login/volvo-road-hero.webp";
 import { BrandMark } from "./BrandHeader";
 import { LanguageToggle } from "./LanguageToggle";
 
-const SCREEN_BG =
-  "radial-gradient(1200px 620px at 50% -12%, #16386b 0%, #0b1f3c 46%, #081627 100%)";
-
 function Shell({ children }: { children: ReactNode }) {
   return (
-    <div
-      className="relative flex min-h-screen items-center justify-center px-4"
-      style={{ background: SCREEN_BG }}
-    >
-      <div className="absolute right-5 top-5">
-        <LanguageToggle />
-      </div>
+    <div className="login-splash">
       {children}
     </div>
   );
 }
 
-function Wordmark() {
+function Wordmark({ tagline }: { tagline: string }) {
   return (
-    <div className="mb-8 flex flex-col items-center text-center">
-      <BrandMark size={54} />
-      <div className="mt-4 flex items-baseline gap-2">
-        <span className="text-xl font-extrabold tracking-tight text-white">SUECA</span>
-        <span className="text-xl font-semibold tracking-tight text-[#9cc0ea]">PROSPECT RADAR</span>
+    <header className="login-wordmark">
+      <div className="login-wordmark-title">
+        <span className="login-wordmark-sueca">SUECA</span>
+        <span className="login-wordmark-radar">PROSPECT RADAR</span>
       </div>
-      <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.28em] text-[#6f97cb]">
-        Commercial Intelligence
+      <div className="login-wordmark-tagline">
+        {tagline}
       </div>
-    </div>
+      <span className="login-wordmark-rule" aria-hidden="true" />
+    </header>
   );
 }
 
@@ -59,39 +51,62 @@ export function LoginGate() {
   };
 
   return (
-    <Shell>
-      <div className="w-full max-w-sm">
-        <Wordmark />
-        <form
-          onSubmit={onSubmit}
-          className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur"
-        >
-          <label htmlFor="access-code" className="mb-1 block text-sm font-semibold text-white">
-            {t("auth.title")}
-          </label>
-          <p className="mb-4 text-xs text-[#9fb6d6]">{t("auth.subtitle")}</p>
-          <input
-            id="access-code"
-            type="password"
-            autoFocus
-            autoComplete="off"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder={t("auth.placeholder")}
-            className="w-full rounded-lg border border-white/15 bg-[#0a1a30] px-4 py-3 text-center text-lg tracking-[0.3em] text-white placeholder:tracking-normal placeholder:text-[#5b78a0] focus:border-[#3f74b6] focus:outline-none"
-          />
-          {error && <p className="mt-3 text-center text-sm text-[#ff9d9d]">{error}</p>}
-          <button
-            type="submit"
-            disabled={busy}
-            className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#2f6fbf] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#3f7fce] disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            <LogIn size={16} />
-            {busy ? t("auth.connecting") : t("auth.enter")}
-          </button>
-        </form>
-      </div>
-    </Shell>
+    <div className="login-screen">
+      <section className="login-visual" aria-label={t("auth.heroAlt")}>
+        <img
+          src={roadHero}
+          alt=""
+          className="login-visual-image"
+          decoding="async"
+          fetchPriority="high"
+        />
+      </section>
+
+      <main className="login-access">
+        <div className="login-language">
+          <LanguageToggle tone="dark" />
+        </div>
+
+        <div className="login-content">
+          <Wordmark tagline={t("brand.tagline")} />
+
+          <form onSubmit={onSubmit} className="login-form" aria-busy={busy}>
+            <div className="login-form-heading">
+              <h1>{t("auth.title")}</h1>
+              <p>{t("auth.subtitle")}</p>
+            </div>
+
+            <label htmlFor="access-code" className="login-label">
+              {t("auth.placeholder")}
+            </label>
+            <input
+              id="access-code"
+              type="password"
+              autoFocus
+              autoComplete="off"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="login-input"
+              aria-describedby={error ? "access-error" : undefined}
+              aria-invalid={Boolean(error)}
+            />
+
+            <div className="login-message-slot" aria-live="polite">
+              {error ? <p id="access-error" className="login-error">{error}</p> : null}
+            </div>
+
+            <button type="submit" disabled={busy || !code.trim()} className="login-submit">
+              {busy ? (
+                <LoaderCircle size={19} className="animate-spin" aria-hidden="true" />
+              ) : (
+                <ArrowRight size={19} aria-hidden="true" />
+              )}
+              <span>{busy ? t("auth.connecting") : t("auth.enter")}</span>
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
   );
 }
 

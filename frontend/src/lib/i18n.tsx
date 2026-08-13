@@ -17,11 +17,12 @@ const ES: Dict = {
     newProspecting: "Nueva prospección",
   },
   auth: {
-    title: "Acceso privado", subtitle: "Ingresá tu código de acceso para continuar",
+    title: "Acceso seguro", subtitle: "Ingresá tu código para continuar",
     placeholder: "Código de acceso", enter: "Ingresar", connecting: "Conectando…",
     checking: "Verificando acceso…", error: "Código de acceso incorrecto", logout: "Salir",
+    heroAlt: "Camiones Volvo azul, rojo y amarillo circulando en ruta",
   },
-  brand: { company: "Sueca Vehículos Pesados", tagline: "Commercial Intelligence" },
+  brand: { company: "Sueca Vehículos Pesados", tagline: "Inteligencia comercial" },
   common: {
     all: "Todas", viewAll: "Ver todo", open: "Abrir", loading: "Cargando…",
     notAvailable: "No disponible", noData: "Sin datos aún", of: "de", page: "Página",
@@ -136,9 +137,10 @@ const EN: Dict = {
     newProspecting: "New prospecting",
   },
   auth: {
-    title: "Private access", subtitle: "Enter your access code to continue",
+    title: "Secure access", subtitle: "Enter your code to continue",
     placeholder: "Access code", enter: "Enter", connecting: "Connecting…",
     checking: "Verifying access…", error: "Incorrect access code", logout: "Log out",
+    heroAlt: "Blue, red and yellow Volvo trucks driving on a highway",
   },
   brand: { company: "Sueca Vehículos Pesados", tagline: "Commercial Intelligence" },
   common: {
