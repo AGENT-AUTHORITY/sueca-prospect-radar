@@ -5,7 +5,7 @@ httpx==0.28.1
 requests==2.34.2
 python-dotenv==1.2.2
 sse-starlette==3.4.8
-certifi==2025.11.5
+certifi==2025.11.12
 truststore==0.10.4
 itsdangerous==2.2.0
 
