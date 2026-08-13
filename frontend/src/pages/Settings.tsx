@@ -52,7 +52,7 @@ export function SettingsPage() {
       )}
 
       <Panel title={t("settings.engine")} onSave={saveEngine}>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {ENGINE_FIELDS.map((f) => (
             <label key={f.key} className="block">
               <span className="mb-1 block text-xs font-medium text-[var(--color-ink-soft)]">{f.label}</span>
@@ -68,7 +68,7 @@ export function SettingsPage() {
 
       <Panel title={t("settings.scoringRules")} onSave={saveScoring}>
         <p className="mb-3 text-xs text-[var(--color-ink-soft)]">{t("settings.scoringHint")}</p>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {Object.entries(scoring).map(([k, v]) => (
             <label key={k} className="block">
               <span className="mb-1 block text-xs font-medium text-[var(--color-ink-soft)]">{k.replace(/_/g, " ")}</span>
@@ -82,7 +82,7 @@ export function SettingsPage() {
         </div>
       </Panel>
 
-      <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+      <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
         <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">{t("settings.activeIndustries")}</h2>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {industries.map((ind) => (
@@ -98,16 +98,16 @@ export function SettingsPage() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+      <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
         <h2 className="mb-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">{t("settings.territoryLocations")}</h2>
-        <div className="mb-4 flex gap-2">
+        <div className="mb-4 flex flex-col gap-2 sm:flex-row">
           <input
             value={newLoc} onChange={(e) => setNewLoc(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && addLoc()}
             placeholder={t("settings.addLocality")}
             className="flex-1 rounded-lg border border-[var(--color-line)] px-3 py-2 text-sm outline-none focus:border-[var(--color-sueca-blue)]"
           />
-          <button onClick={addLoc} className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-sueca-blue)] px-4 text-sm font-medium text-white hover:bg-[var(--color-sueca-dark)]">
+          <button onClick={addLoc} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-[var(--color-sueca-blue)] px-4 text-sm font-medium text-white hover:bg-[var(--color-sueca-dark)]">
             <Plus size={15} /> {t("common.add")}
           </button>
         </div>
@@ -126,7 +126,7 @@ export function SettingsPage() {
 function Panel({ title, onSave, children }: { title: string; onSave: () => void; children: React.ReactNode }) {
   const { t } = useT();
   return (
-    <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+    <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">{title}</h2>
         <button onClick={onSave} className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-sueca-blue)] px-3.5 py-1.5 text-sm font-medium text-white hover:bg-[var(--color-sueca-dark)]">

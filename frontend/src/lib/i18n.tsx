@@ -8,6 +8,7 @@ const ES: Dict = {
   nav: {
     dashboard: "Panel", prospecting: "Prospección", prospects: "Prospectos",
     territory: "Territorio", pipeline: "Pipeline", searchRuns: "Búsquedas", settings: "Configuración",
+    openMenu: "Abrir menú", closeMenu: "Cerrar menú",
   },
   header: {
     dashboard: "Panel", prospecting: "Prospección", prospects: "Prospectos",
@@ -128,6 +129,7 @@ const EN: Dict = {
   nav: {
     dashboard: "Dashboard", prospecting: "Prospecting", prospects: "Prospects",
     territory: "Territory", pipeline: "Pipeline", searchRuns: "Search Runs", settings: "Settings",
+    openMenu: "Open menu", closeMenu: "Close menu",
   },
   header: {
     dashboard: "Dashboard", prospecting: "Prospecting", prospects: "Prospects",

@@ -154,7 +154,7 @@ export function ProspectDrawer({
           <div className="grid flex-1 place-items-center text-sm text-[var(--color-ink-soft)]">{t("common.loading")}</div>
         ) : (
           <>
-            <div className="relative bg-[var(--color-sueca-deep)] px-6 pb-5 pt-6 text-white">
+            <div className="relative bg-[var(--color-sueca-deep)] px-4 pb-4 pt-5 text-white sm:px-6 sm:pb-5 sm:pt-6">
               <button onClick={onClose} className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white">
                 <X size={18} />
               </button>
@@ -166,9 +166,9 @@ export function ProspectDrawer({
               </div>
             </div>
 
-            <div className="flex-1 space-y-6 overflow-y-auto px-6 py-5">
+            <div className="flex-1 space-y-5 overflow-y-auto px-4 py-4 sm:space-y-6 sm:px-6 sm:py-5">
               {/* Commercial potential + data confidence */}
-              <div className="flex items-center gap-5 rounded-xl border border-[var(--color-line)] bg-[var(--color-canvas)] p-4">
+              <div className="flex flex-col items-start gap-4 rounded-xl border border-[var(--color-line)] bg-[var(--color-canvas)] p-4 min-[390px]:flex-row min-[390px]:items-center min-[390px]:gap-5">
                 <ScoreRing score={p.score} priority={p.priority} size={104} />
                 <div className="flex-1">
                   <div className="mb-1 flex items-center gap-2">
@@ -273,7 +273,7 @@ export function ProspectDrawer({
               {/* Contact data */}
               <div>
                 <SectionTitle icon={Phone}>{t("profile.contactData")}</SectionTitle>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
                   <ActionButton href={p.phone ? `tel:${p.phone}` : undefined} icon={Phone} label={t("profile.call")} />
                   <ActionButton href={wa ? `https://wa.me/${wa}` : undefined} icon={MessageCircle} label="WhatsApp" tone="green" />
                   <ActionButton href={p.website ?? undefined} icon={Globe} label={t("profile.website")} />
@@ -316,7 +316,7 @@ export function ProspectDrawer({
                       {p.next_action_date && <span className="text-[var(--color-ink-soft)]">· {new Date(p.next_action_date).toLocaleDateString()}</span>}
                     </div>
                   )}
-                  <div className="flex gap-2">
+                  <div className="flex flex-col gap-2 sm:flex-row">
                     <button onClick={() => changeStatus("READY_TO_CONTACT")} disabled={busy}
                       className="flex-1 rounded-lg bg-[var(--color-sueca-blue)] py-2 text-sm font-semibold text-white hover:bg-[var(--color-sueca-dark)] disabled:opacity-60">
                       {t("profile.addToPipeline")}

@@ -50,7 +50,8 @@ export function Prospecting() {
   const toggleInd = (key: string) => {
     setSelectedInd((prev) => {
       const next = new Set(prev);
-      next.has(key) ? next.delete(key) : next.add(key);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
       return next;
     });
   };
@@ -165,7 +166,7 @@ export function Prospecting() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-6 text-center">
+            <div className="grid w-full grid-cols-3 gap-3 text-center sm:flex sm:w-auto sm:items-center sm:gap-6">
               <ScanStat label={t("prospecting.query")} value={`${Math.min(queriesDone, selectedInd.size)}/${selectedInd.size}`} />
               <ScanStat label={t("prospecting.detected")} value={counters.found} />
               <ScanStat label={t("prospecting.newProspects")} value={counters.saved} accent="#4ade80" />
@@ -179,7 +180,7 @@ export function Prospecting() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[380px_1fr]">
         {/* Config panel */}
         <div className="space-y-4">
-          <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+          <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
             <h2 className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">
               <MapPin size={15} className="text-[var(--color-sueca-blue)]" /> {t("prospecting.searchParameters")}
             </h2>
@@ -279,7 +280,7 @@ export function Prospecting() {
         </div>
 
         {/* Live feed */}
-        <div className="h-[560px]">
+        <div className="h-[460px] sm:h-[560px]">
           <LiveFeed runId={runId} onEvent={onEvent} onDone={onDone} />
         </div>
       </div>
@@ -288,7 +289,7 @@ export function Prospecting() {
       {highBanner && (
         <button
           onClick={() => setSelected(highBanner.id)}
-          className="animate-fade-up flex w-full items-center gap-4 rounded-xl border border-[var(--color-sueca-light)]/50 bg-gradient-to-r from-[var(--color-sueca-deep)] to-[var(--color-sueca-dark)] px-5 py-4 text-left text-white shadow-[var(--shadow-pop)]"
+          className="animate-fade-up flex w-full flex-wrap items-center gap-3 rounded-xl border border-[var(--color-sueca-light)]/50 bg-gradient-to-r from-[var(--color-sueca-deep)] to-[var(--color-sueca-dark)] px-4 py-4 text-left text-white shadow-[var(--shadow-pop)] sm:flex-nowrap sm:gap-4 sm:px-5"
         >
           <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/12">
             <Sparkles size={22} className="text-[#9cc0ea]" />
@@ -299,7 +300,7 @@ export function Prospecting() {
             </div>
             <div className="text-lg font-bold leading-tight">{highBanner.name}</div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="ml-auto flex items-center gap-3 sm:gap-4">
             <div className="text-right">
               <div className="tnum text-2xl font-bold text-white">{highBanner.score}</div>
               <div className="text-[10px] uppercase tracking-wide text-[#9cc0ea]">/ 100</div>
@@ -328,7 +329,7 @@ export function Prospecting() {
           onAddToPipeline={addToPipeline}
           newIds={newIds}
           center={centerLoc?.latitude ? [centerLoc.latitude, centerLoc.longitude!] : undefined}
-          className="h-[380px]"
+          className="h-[340px] sm:h-[380px]"
         />
       </div>
 

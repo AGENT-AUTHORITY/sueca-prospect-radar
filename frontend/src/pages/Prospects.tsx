@@ -76,7 +76,7 @@ export function Prospects() {
       {/* Filters */}
       <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)]">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="relative min-w-[16rem] flex-1">
+          <div className="relative min-w-0 flex-[1_1_16rem]">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-soft)]" />
             <input
               value={search}
@@ -96,7 +96,7 @@ export function Prospects() {
           </Select>
           <a
             href={api.exportCsvUrl(query)}
-            className="ml-auto inline-flex items-center gap-2 rounded-lg border border-[var(--color-line)] bg-white px-3.5 py-2 text-sm font-medium text-[var(--color-ink)] hover:border-[var(--color-sueca-blue)] hover:text-[var(--color-sueca-blue)]"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-[var(--color-line)] bg-white px-3.5 py-2 text-sm font-medium text-[var(--color-ink)] hover:border-[var(--color-sueca-blue)] hover:text-[var(--color-sueca-blue)] sm:ml-auto sm:w-auto"
           >
             <Download size={15} /> {t("prospects.exportCsv")}
           </a>
@@ -111,7 +111,7 @@ export function Prospects() {
           <Check label={t("prospects.hasPhone")} checked={hasPhone} onChange={setHasPhone} />
           <Check label={t("prospects.hasWebsite")} checked={hasWebsite} onChange={setHasWebsite} />
           <Check label={t("prospects.fleetSignal")} checked={fleet} onChange={setFleet} />
-          <span className="ml-auto tnum font-medium text-[var(--color-ink)]">{total} {t("prospects.prospects")}</span>
+          <span className="w-full tnum font-medium text-[var(--color-ink)] sm:ml-auto sm:w-auto">{total} {t("prospects.prospects")}</span>
         </div>
       </div>
 
@@ -224,7 +224,7 @@ function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-sueca-blue)]"
+      className="min-h-11 w-full rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-sueca-blue)] sm:w-auto"
     >
       <option value="">{placeholder}</option>
       {children}

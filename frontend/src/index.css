@@ -53,6 +53,7 @@ body,
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans);

@@ -96,7 +96,7 @@ export function Territory() {
             await api.changeStatus(id, "READY_TO_CONTACT", "Added from territory map").catch(() => {});
             api.mapPoints().then(setPoints);
           }}
-          className="h-[calc(100vh-11rem)] min-h-[520px]"
+          className="h-[58svh] min-h-[360px] lg:h-[calc(100vh-11rem)] lg:min-h-[520px]"
         />
       </div>
 

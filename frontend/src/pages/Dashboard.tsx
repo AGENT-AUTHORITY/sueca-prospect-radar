@@ -36,7 +36,7 @@ export function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((c) => (
           <MetricCard key={c.label} {...c} />
         ))}
@@ -59,26 +59,26 @@ export function Dashboard() {
               await api.changeStatus(id, "READY_TO_CONTACT", "Added from dashboard map").catch(() => {});
               load();
             }}
-            className="h-[420px]"
+            className="h-[360px] sm:h-[420px]"
           />
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+          <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">
               {t("dashboard.topVolvoFit")}
             </h2>
             <VolvoFit byVolvo={m?.by_volvo ?? {}} />
           </div>
 
-          <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+          <div className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">
               {t("dashboard.byIndustry")}
             </h2>
             <IndustryBars byIndustry={m?.by_industry ?? {}} />
           </div>
 
-          <div className="flex-1 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+          <div className="flex-1 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-card)] sm:p-5">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">
                 {t("dashboard.recentRuns")}
