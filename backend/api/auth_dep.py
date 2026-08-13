@@ -7,7 +7,9 @@ from __future__ import annotations
 
 from fastapi import HTTPException, Request
 
+from api.auth_token import request_is_authenticated
+
 
 def require_auth(request: Request) -> None:
-    if not request.session.get("authed"):
+    if not request_is_authenticated(request):
         raise HTTPException(status_code=401, detail="Not authenticated")

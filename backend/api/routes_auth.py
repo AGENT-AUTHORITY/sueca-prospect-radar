@@ -13,6 +13,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 
 import config
+from api.auth_token import create_auth_token, request_is_authenticated
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -33,7 +34,7 @@ def login(body: LoginIn, request: Request) -> dict:
     if not _code_matches(body.code.strip()):
         raise HTTPException(status_code=401, detail="Código de acceso incorrecto")
     request.session["authed"] = True
-    return {"authenticated": True}
+    return {"authenticated": True, "token": create_auth_token()}
 
 
 @router.post("/logout")
@@ -44,4 +45,4 @@ def logout(request: Request) -> dict:
 
 @router.get("/session")
 def session(request: Request) -> dict:
-    return {"authenticated": bool(request.session.get("authed"))}
+    return {"authenticated": request_is_authenticated(request)}

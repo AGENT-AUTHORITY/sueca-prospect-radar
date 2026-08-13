@@ -11,26 +11,39 @@ import type {
   StartSearchBody,
 } from "./types";
 
-// In dev VITE_API_URL is unset -> "/api" (Vite proxies to the backend).
-// In production it points at the backend host, e.g. https://api.example.com.
+// Development uses the Vite proxy when unset; production points to Render.
 const API_ROOT = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
 const BASE = `${API_ROOT}/api`;
 
 export const apiRoot = API_ROOT;
 
 let onUnauthorized: (() => void) | null = null;
+const AUTH_TOKEN_KEY = "sueca.auth.token";
+let authToken = window.localStorage.getItem(AUTH_TOKEN_KEY);
+
+function storeAuthToken(token: string | null): void {
+  authToken = token;
+  if (token) window.localStorage.setItem(AUTH_TOKEN_KEY, token);
+  else window.localStorage.removeItem(AUTH_TOKEN_KEY);
+}
+
 /** Register a handler invoked when a data endpoint returns 401 (expired session). */
 export function setUnauthorizedHandler(fn: (() => void) | null): void {
   onUnauthorized = fn;
 }
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
+  const headers = new Headers(init?.headers);
+  if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
+  if (authToken) headers.set("Authorization", `Bearer ${authToken}`);
+
   const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
-    credentials: "include", // send/receive the session cookie (cross-origin in prod)
     ...init,
+    headers,
+    credentials: "include",
   });
   if (res.status === 401 && !path.startsWith("/auth/")) {
+    storeAuthToken(null);
     onUnauthorized?.();
   }
   if (!res.ok) {
@@ -131,8 +144,20 @@ export const api = {
 
   // Access gate
   authSession: () => req<{ authenticated: boolean }>("/auth/session"),
-  login: (code: string) =>
-    req<{ authenticated: boolean }>("/auth/login", { method: "POST", body: JSON.stringify({ code }) }),
-  logout: () => req<{ authenticated: boolean }>("/auth/logout", { method: "POST" }),
+  login: async (code: string) => {
+    const result = await req<{ authenticated: boolean; token?: string }>("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ code }),
+    });
+    if (result.token) storeAuthToken(result.token);
+    return result;
+  },
+  logout: async () => {
+    try {
+      return await req<{ authenticated: boolean }>("/auth/logout", { method: "POST" });
+    } finally {
+      storeAuthToken(null);
+    }
+  },
   health: () => req<{ status: string; service?: string }>("/health"),
 };
