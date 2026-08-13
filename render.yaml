@@ -1,0 +1,27 @@
+# Render Blueprint — SUECA PROSPECT RADAR backend (FastAPI + prospecting engine)
+# The engine runs long OSM scans, a background worker and a live SSE feed, so it
+# needs an always-on web service (not serverless). Free tier is enough.
+services:
+  - type: web
+    name: sueca-prospect-radar-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+      # Random signing key for the session cookie (Render generates it).
+      - key: SESSION_SECRET
+        generateValue: true
+      # Secrets — set these in the Render dashboard (Environment tab):
+      - key: DATABASE_URL        # Supabase Session pooler URI
+        sync: false
+      - key: ACCESS_CODE_HASH    # sha256 of your access code (scripts/make_access_hash.py)
+        sync: false
+      - key: CORS_ORIGINS        # your Vercel URL, e.g. https://sueca-prospect-radar.vercel.app
+        sync: false

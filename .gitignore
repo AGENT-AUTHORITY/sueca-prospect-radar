@@ -1,0 +1,28 @@
+# Env / secrets (any level) — never commit; .env.example stays tracked
+.env
+*.env
+!.env.example
+!backend/.env.example
+
+# Database backups — may contain commercial data, never commit
+backups/
+
+# Python
+backend/.venv/
+.venv/
+__pycache__/
+*.pyc
+backend/.env
+backend/data/*.db
+backend/data/*.db-wal
+backend/data/*.db-shm
+backend/logs/*.log
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS / editor
+.DS_Store
+Thumbs.db
