@@ -1,0 +1,48 @@
+"""Access gate: login / logout / session.
+
+Single-user authentication for this phase. The access code is validated
+server-side against a SHA-256 hash (never shipped to the browser) and, on
+success, a signed session cookie is issued by SessionMiddleware.
+"""
+from __future__ import annotations
+
+import hashlib
+import hmac
+
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
+
+import config
+from api.auth_token import create_auth_token, request_is_authenticated
+
+router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+
+class LoginIn(BaseModel):
+    code: str
+
+
+def _code_matches(code: str) -> bool:
+    if not config.ACCESS_CODE_HASH:
+        return False  # fail closed when no code is configured (e.g. prod misconfig)
+    digest = hashlib.sha256(code.encode("utf-8")).hexdigest()
+    return hmac.compare_digest(digest, config.ACCESS_CODE_HASH)
+
+
+@router.post("/login")
+def login(body: LoginIn, request: Request) -> dict:
+    if not _code_matches(body.code.strip()):
+        raise HTTPException(status_code=401, detail="Código de acceso incorrecto")
+    request.session["authed"] = True
+    return {"authenticated": True, "token": create_auth_token()}
+
+
+@router.post("/logout")
+def logout(request: Request) -> dict:
+    request.session.clear()
+    return {"authenticated": False}
+
+
+@router.get("/session")
+def session(request: Request) -> dict:
+    return {"authenticated": request_is_authenticated(request)}

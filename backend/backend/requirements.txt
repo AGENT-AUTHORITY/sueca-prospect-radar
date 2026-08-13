@@ -1,0 +1,14 @@
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+sqlalchemy==2.0.51
+httpx==0.28.1
+requests==2.34.2
+python-dotenv==1.2.2
+sse-starlette==3.4.8
+certifi==2025.11.12
+truststore==0.10.4
+itsdangerous==2.2.0
+
+# PostgreSQL / Supabase driver (psycopg 3). Harmless on SQLite installs; the
+# app only talks to Postgres when DATABASE_URL=postgresql+psycopg://... (.env).
+psycopg[binary]==3.2.3
